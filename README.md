@@ -9,3 +9,8 @@
       implementation 'com.dayi.base:mutils:1.1.0'
       implementation 'com.dayi.base:mcommon:1.1.0'
     注意：mcommon库包含了另外三个库，所以如果集成了mcommon就不需要上面三个库了
+## 3.当前版本：
+      mhttp:1.1.0
+      mutils:1.1.0
+      mwidget:1.1.0
+      mcommon:1.1.0
