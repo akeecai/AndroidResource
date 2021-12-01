@@ -59,6 +59,7 @@
                     * midNum(String strData, int frome, int num)：从字符串的第几位开始截取，strData需要截取的字符串资源，frome从第几位开始截取，num截取多少位
                     * subStringBefore(String strData, String sub)：截取字符串指定字符的前段，strData需要截取的资源，sub指定的字符串
                     * subStringAfter(String strData, String sub)：截取字符串指定字符的后段，strData需要截取的资源，sub指定的字符串
+                    注意：截取指定字符串的前端或后段，要求标识的字符串是唯一的即"aabbaaeeff"中，aa两次出现，不能以aa为截取标识
                     * subNumSplitSign(String strData, int from, int num, String sign)：从指定第from位开始截取，截取num位， 并在末尾拼接sign
                     * copyStr(String value)：复制文本
                     * checkStr2Int(String str)：判断字符串是否可以转成number
@@ -181,9 +182,9 @@
 
             #### 使用说明：
             * xml 中定义
-            <com.dayi35.qx_widget.widget.CircleImageView
-                            android:layout_width="@dimen/widget_dp_34"
-                            android:layout_height="@dimen/widget_dp_34"
+            <com.dayi.mwidget.componts.CircleImageView
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
                             app:widget_civ_border_width="dimen 边框线宽度"
                             app:widget_civ_border_overlay="boolean 是否显示边框"
                             app:widget_civ_border_color="color 边框线颜色"
@@ -199,7 +200,7 @@
 
             #### 使用说明：
             * xml 中定义
-            <com.dayi35.qx_widget.widget.CircularCornerImageView
+            <com.dayi.mwidget.componts.CircularCornerImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/widget_dp_90"
                     app:widget_topleft1_radius="@dimen/widget_dp_12"
@@ -297,7 +298,29 @@
                   boolean bOutsideTouchable, int _backColor, ANIMATION _animation,
                   OnEventListenner.OnBaseClickListenner _onClickListenner, SIMPLE_GRAVITY _gravity)
 
-            ##### 2. BasePop
+             #### 2. BottomColumnPopupWindow 默认的底部弹窗，数据类型为字符串集合（其他方法根据方法名的含义去理解配置）:
+                        new BottomColumnPopupWindow.Builder(WidgetActivity.this)
+                                                    .data(mList)
+                                                    .targetView(mBtnBottomPop)
+                                                    .onClickListener((value, pos) -> Toast.makeText(WidgetActivity.this, "value:" + value + "position:" + pos, Toast.LENGTH_LONG).show())
+                                                    .build()
+                                                    .show();
+
+                #### 3.CommonPopupWindow 通用自定义弹窗，通过popAdapterListenner方法获取到视图，然后通过获取到的视图去做数据的适配（其他方法根据方法名的含义去理解配置）：
+                        CommonPopupWindow commonPopupWindow = new CommonPopupWindow.Builder(WidgetActivity.this, R.layout.demo_pop_common)
+                                                .targetView(mBtnBottomPop)
+                                                .touchAble(true)
+                                                .simpleGravity(BasePopView.SIMPLE_GRAVITY.CENTER_IN_PARENT)
+                                                .popAdapterListenner((popView, pop_builder) -> {
+                                                    TextView mTv1 = popView.findViewById(R.id.demo_tv_pop_1);
+                                                    TextView mTv2 = popView.findViewById(R.id.demo_tv_pop_2);
+                                                    Button mBtnCancel = popView.findViewById(R.id.demo_btn_pop_cancel);
+                                                    mTv1.setText("这是设置的第一条数据");
+                                                    mTv2.setText("这是设置的第二条数据");
+                                                    mBtnCancel.setOnClickListener(v1 -> pop_builder.dissmiss());
+                                                })
+                                                .build();
+                                        commonPopupWindow.show();
 
 
 
@@ -365,6 +388,7 @@
             * 在xml中根据2（字段说明）中的字段去设置相应的样式
             * 在界面中中得到定义的bannerlayout，设置其图片加载方法
                   mBanner.addImageLoader(BannerImageLoadCallback实现对象);
+                  注意：要先设置好图片加载器再设置图片资源，否则有可能会出现图片加载不出的情况
             * 设置要轮播的数据（图片url的集合或者资源中的地址集合）
                   mBanner.setViewUrls(图片url集合, 对应的图片名称集合);
                   mBanner.setViewRes(图片地址集合, 对应的图片名称的集合)
