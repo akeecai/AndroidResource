@@ -28,7 +28,7 @@
 
     ### 使用说明：
     * xml 中定义
-    <com.dayi35.qx_widget.widget.CircleImageView
+    <com.dayi.mwidget.componts.CircleImageView
                     android:layout_width="@dimen/widget_dp_34"
                     android:layout_height="@dimen/widget_dp_34"
                     app:widget_civ_border_width="dimen 边框线宽度"
@@ -46,7 +46,7 @@
 
     ### 使用说明：
     * xml 中定义
-    <com.dayi35.qx_widget.widget.CircularCornerImageView
+    <com.dayi.mwidget.componts.CircularCornerImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/widget_dp_90"
             app:widget_topleft1_radius="@dimen/widget_dp_12"
@@ -144,7 +144,29 @@
           boolean bOutsideTouchable, int _backColor, ANIMATION _animation,
           OnEventListenner.OnBaseClickListenner _onClickListenner, SIMPLE_GRAVITY _gravity)
 
-    #### 2. BasePop
+    #### 2. BottomColumnPopupWindow 默认的底部弹窗，数据类型为字符串集合（其他方法根据方法名的含义去理解配置）:
+            new BottomColumnPopupWindow.Builder(WidgetActivity.this)
+                                        .data(mList)
+                                        .targetView(mBtnBottomPop)
+                                        .onClickListener((value, pos) -> Toast.makeText(WidgetActivity.this, "value:" + value + "position:" + pos, Toast.LENGTH_LONG).show())
+                                        .build()
+                                        .show();
+
+    #### 3.CommonPopupWindow 通用自定义弹窗，通过popAdapterListenner方法获取到视图，然后通过获取到的视图去做数据的适配（其他方法根据方法名的含义去理解配置）：
+            CommonPopupWindow commonPopupWindow = new CommonPopupWindow.Builder(WidgetActivity.this, R.layout.demo_pop_common)
+                                    .targetView(mBtnBottomPop)
+                                    .touchAble(true)
+                                    .simpleGravity(BasePopView.SIMPLE_GRAVITY.CENTER_IN_PARENT)
+                                    .popAdapterListenner((popView, pop_builder) -> {
+                                        TextView mTv1 = popView.findViewById(R.id.demo_tv_pop_1);
+                                        TextView mTv2 = popView.findViewById(R.id.demo_tv_pop_2);
+                                        Button mBtnCancel = popView.findViewById(R.id.demo_btn_pop_cancel);
+                                        mTv1.setText("这是设置的第一条数据");
+                                        mTv2.setText("这是设置的第二条数据");
+                                        mBtnCancel.setOnClickListener(v1 -> pop_builder.dissmiss());
+                                    })
+                                    .build();
+                            commonPopupWindow.show();
 
 
 
@@ -152,7 +174,7 @@
 
     ### 功能说明：
     * 通用风格的dialog弹窗；
-    * 可根据设置的弹窗类型（CommonAlertDialog中定义的Type类型，来指定现实的弹窗的类型，有：NORMAL_TYPE，ERROR_TYPE，SUCCESS_TYPE等）
+    * 可根据设置的弹窗类型（CommonAlertDialog中定义的Type类型，来指定现实的弹窗的类型，有：NORMAL_TYPE(默认类型)，ERROR_TYPE，SUCCESS_TYPE等）
     * 提供动态设置弹窗内容的方法
     * 可设置弹窗进度的风格
 
@@ -215,6 +237,7 @@
     * 设置要轮播的数据（图片url的集合或者资源中的地址集合）
           mBanner.setViewUrls(图片url集合, 对应的图片名称集合);
           mBanner.setViewRes(图片地址集合, 对应的图片名称的集合)
+          注意：在设置图片数据前，一定要先设置好ImageLoader图片加载器
     * 设置banner的点击事件
           mBanner.setOnBannerItemClickListener(OnBannerItemClickListener实现对象);
     * 启动轮播
@@ -230,7 +253,6 @@
     ### 使用方法（以CircleIndicator为例）：
     * xml中定义指示器以及其位置
     <com.dayi.mwidget.indictor.CircleIndicator
-                android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"/>
     * 界面中得到指示器对象

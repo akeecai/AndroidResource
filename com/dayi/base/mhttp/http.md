@@ -1,16 +1,5 @@
 # 数据层 mhttp说明
 
-## 引用说明：
-    ### 1.复制mHttp.aar到项目的libs下；
-    ### 2.使用的模块的build的android里面说明flatDir 即:
-     repositories {
-               flatDir {
-                     dirs 'libs'
-                       }
-                }
-    ### 3.dependencies 里面：
-     implementation(name: 'mhttp', ext: 'aar')
-
 ## 使用说明：
     ### 1.在入口配置好ParameterConfig相应的参数（具体参数值看类说明）：
     ParameterConfig.instance().mContext(this).openProxy(true);
