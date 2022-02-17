@@ -27,3 +27,12 @@
         skinPluginPath:资源包的路径（存储路径）；
         skinPluginPkg：资源包的包名；
         callback：切换回调，包含三个状态onStart(),onError(Exception e),onComplete()。
+     4.控件中申明：
+        4.1 tag中skin:资源名:资源类型(目前定义了src图片资源,textColor文字颜色,divider分割线,background背景)，如文本颜色：
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="资源说明"
+                    android:tag="skin:demo_test_color:textColor"
+                    android:textColor="@color/demo_test_color"/>
+        4.2 在要切换资源的控件中，一定要按规则声明tag，否则无法正常切换。
