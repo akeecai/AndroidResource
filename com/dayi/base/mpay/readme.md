@@ -53,3 +53,9 @@
 ## PayExceptionUtils 错误统一解析工具
     说明：可在此类添加全局的统一处理动作，但是正常的业务类回调需在界面操作，暂时在支付动作处绑定回调操作
     使用：在入口调用setCallback(PayExceptionCallback callback)方法，在定义的方法中处理动作
+
+## 需要的权限
+    android.permission.INTERNET
+    android.permission.ACCESS_NETWORK_STATE
+    android.permission.ACCESS_WIFI_STATE
+    android.permission.READ_PHONE_STATE
